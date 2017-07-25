@@ -31103,7 +31103,7 @@ var App = function App() {
       _react2.default.createElement(
         'h1',
         null,
-        'Bench BnB'
+        'AirBnB'
       ),
       _react2.default.createElement(_greeting_container2.default, null)
     ),
@@ -31370,7 +31370,7 @@ var SessionForm = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit, className: 'login-form-box' },
-          'Welcome to BenchBnB!',
+          'Welcome to AirBnB!',
           _react2.default.createElement('br', null),
           'Please ',
           this.props.formType,
