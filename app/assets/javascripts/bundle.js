@@ -9765,6 +9765,8 @@ var _root = __webpack_require__(326);
 
 var _root2 = _interopRequireDefault(_root);
 
+var _session_api_util = __webpack_require__(184);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -9772,6 +9774,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var store = (0, _store2.default)();
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.login = _session_api_util.login;
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
 
@@ -22422,7 +22425,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var login = exports.login = function login(user) {
-  return $.ajax({
+  return jQuery.ajax({
     method: 'POST',
     url: '/api/session',
     data: user
@@ -22430,7 +22433,7 @@ var login = exports.login = function login(user) {
 };
 
 var signup = exports.signup = function signup(user) {
-  return $.ajax({
+  return jQuery.ajax({
     method: 'POST',
     url: '/api/user',
     data: user
@@ -22438,7 +22441,7 @@ var signup = exports.signup = function signup(user) {
 };
 
 var logout = exports.logout = function logout() {
-  return $.ajax({
+  return jQuery.ajax({
     method: 'DELETE',
     url: '/api/session'
   });
@@ -31178,7 +31181,7 @@ var sessionLinks = function sessionLinks() {
   );
 };
 
-var personalGreeting = function personalGreeting(currentuser, logout) {
+var personalGreeting = function personalGreeting(currentUser, logout) {
   return _react2.default.createElement(
     'hgroup',
     { className: 'header-group' },
