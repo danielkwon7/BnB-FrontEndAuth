@@ -31078,6 +31078,10 @@ var _react = __webpack_require__(82);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _greeting_container = __webpack_require__(365);
+
+var _greeting_container2 = _interopRequireDefault(_greeting_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -31085,14 +31089,121 @@ var App = function App() {
     'div',
     null,
     _react2.default.createElement(
-      'h1',
+      'header',
       null,
-      'Bench BnB'
+      _react2.default.createElement(
+        'h1',
+        null,
+        'Bench BnB'
+      ),
+      _react2.default.createElement(_greeting_container2.default, null)
     )
   );
 };
 
 exports.default = App;
+
+/***/ }),
+/* 365 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(327);
+
+var _session_actions = __webpack_require__(307);
+
+var _greeting = __webpack_require__(366);
+
+var _greeting2 = _interopRequireDefault(_greeting);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var session = _ref.session;
+  return {
+    currentUser: session.currentUser
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_greeting2.default);
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(82);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(338);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var sessionLinks = function sessionLinks() {
+  return _react2.default.createElement(
+    'nav',
+    { className: 'login-signup' },
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { to: '/#/login' },
+      'Login'
+    ),
+    '\xA0or\xA0',
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { to: '/#/signup' },
+      'Sign up!'
+    )
+  );
+};
+
+var personalGreeting = function personalGreeting(currentuser, logout) {
+  return _react2.default.createElement(
+    'hgroup',
+    { className: 'header-group' },
+    _react2.default.createElement(
+      'h2',
+      { className: 'header-name' },
+      'Hi, ',
+      currentUser.username,
+      '!'
+    ),
+    _react2.default.createElement(
+      'button',
+      { className: 'header-button', onClick: logout },
+      'Log Out'
+    )
+  );
+};
+
+var Greeting = function Greeting(_ref) {
+  var currentUser = _ref.currentUser,
+      logout = _ref.logout;
+  return currentUser ? personalGreeting(currentUser, logout) : sessionLinks();
+};
+
+exports.default = Greeting;
 
 /***/ })
 /******/ ]);
