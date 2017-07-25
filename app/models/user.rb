@@ -41,6 +41,6 @@ class User < ApplicationRecord
   def ensure_session_token_uniqueness
     while User.find_by(session_token: self.session_token)
       self.session_token = new_session_token
-    end 
+    end
   end
 end
