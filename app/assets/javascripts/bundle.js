@@ -9767,6 +9767,8 @@ var _root2 = _interopRequireDefault(_root);
 
 var _session_api_util = __webpack_require__(184);
 
+var _bench_actions = __webpack_require__(371);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -9782,6 +9784,8 @@ document.addEventListener('DOMContentLoaded', function () {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   window.login = _session_api_util.login;
+  window.fetchBenches = _bench_actions.fetchBenches;
+
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
 
@@ -24393,10 +24397,15 @@ var _session_reducer = __webpack_require__(239);
 
 var _session_reducer2 = _interopRequireDefault(_session_reducer);
 
+var _benches_reducer = __webpack_require__(373);
+
+var _benches_reducer2 = _interopRequireDefault(_benches_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-  session: _session_reducer2.default
+  session: _session_reducer2.default,
+  benches: _benches_reducer2.default
 });
 
 exports.default = rootReducer;
@@ -31461,6 +31470,95 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchBenches = exports.receiveBench = exports.receiveBenches = exports.RECEIVE_BENCH = exports.RECEIVE_BENCHES = undefined;
+
+var _bench_api_util = __webpack_require__(372);
+
+var APIUtil = _interopRequireWildcard(_bench_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_BENCHES = exports.RECEIVE_BENCHES = 'RECEIVE_BENCHES';
+var RECEIVE_BENCH = exports.RECEIVE_BENCH = 'RECEIVE_BENCH';
+
+var receiveBenches = exports.receiveBenches = function receiveBenches(benches) {
+  return {
+    type: RECEIVE_BENCHES,
+    benches: benches
+  };
+};
+
+var receiveBench = exports.receiveBench = function receiveBench(bench) {
+  return {
+    type: RECEIVE_BENCH,
+    bench: bench
+  };
+};
+
+var fetchBenches = exports.fetchBenches = function fetchBenches() {
+  return function (dispatch) {
+    return APIUtil.fetchBenches().then(function (benches) {
+      return dispatch(receiveBenches(benches));
+    });
+  };
+};
+
+/***/ }),
+/* 372 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchBenches = exports.fetchBenches = function fetchBenches(data) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/benches',
+    data: data
+  });
+};
+
+/***/ }),
+/* 373 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _bench_actions = __webpack_require__(371);
+
+var benchesReducer = function benchesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _bench_actions.RECEIVE_BENCHES:
+      return action.benches;
+    default:
+      return state;
+  }
+};
+
+exports.default = benchesReducer;
 
 /***/ })
 /******/ ]);
